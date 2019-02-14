@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)file:///C:/Users/yanhengtao/Desktop/Json%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90.html -->
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JsonPath</title>
+<style type="text/css">
+table {
+	border-top: 0px solid #f1f1f1;
+	border-left: 0px solid #f1f1f1;
+	border-collapse: collapse; /*设置单元格的边框合并为1*/
+}
+
+td {
+	border-bottom: 0px solid #f1f1f1;
+	border-right: 0px solid #f1f1f1;
+	padding: 5px;
+}
+
+.cls {
+	background: #f1f1f1;
+}
+</style>
+</head>
+<body>
+	<table>
+		<tbody>
+			<tr class="cls">
+				<td><strong>XPath</strong></td>
+				<td><strong>JSONPath</strong></td>
+				<td><strong>Description</strong></td>
+			</tr>
+			<tr>
+				<td>/</td>
+				<td>$</td>
+				<td>the root object/element</td>
+			</tr>
+			<tr>
+				<td>.</td>
+				<td>@</td>
+				<td>the current object/element</td>
+			</tr>
+			<tr>
+				<td>/</td>
+				<td>. or []</td>
+				<td>child operator</td>
+			</tr>
+			<tr>
+				<td>..</td>
+				<td>n/a</td>
+				<td>parent operator</td>
+			</tr>
+			<tr>
+				<td>//</td>
+				<td>..</td>
+				<td>recursive descent. JSONPath borrows this syntax from E4X.</td>
+			</tr>
+			<tr>
+				<td>*</td>
+				<td>*</td>
+				<td>wildcard. All objects/elements regardless their names.</td>
+			</tr>
+			<tr>
+				<td>@</td>
+				<td>n/a</td>
+				<td>attribute access. JSON structures don't have attributes.</td>
+			</tr>
+			<tr>
+				<td>[]</td>
+				<td>[]</td>
+				<td>subscript operator. XPath uses it to iterate over element
+					collections and for <a href="http://www.w3.org/TR/xpath#predicates">predicates</a>.
+					In Javascript and JSON it is the native array operator.
+				</td>
+			</tr>
+			<tr>
+				<td>|</td>
+				<td>[,]</td>
+				<td>Union operator in XPath results in a combination of node
+					sets. JSONPath allows alternate names or array indices as a set.</td>
+			</tr>
+			<tr>
+				<td>n/a</td>
+				<td>[start:end:step]</td>
+				<td>array slice operator borrowed from ES4.</td>
+			</tr>
+			<tr>
+				<td>[]</td>
+				<td>?()</td>
+				<td>applies a filter (script) expression.</td>
+			</tr>
+			<tr>
+				<td>n/a</td>
+				<td>()</td>
+				<td>script expression, using the underlying script engine.</td>
+			</tr>
+			<tr>
+				<td>()</td>
+				<td>n/a</td>
+				<td>grouping in Xpath</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<table>
+		<tbody>
+			<tr class="cls">
+				<td><strong>XPath</strong></td>
+				<td><strong>JSONPath</strong></td>
+				<td><strong>Result</strong></td>
+			</tr>
+			<tr>
+				<td><code>/store/book/author</code></td>
+				<td><code>$.store.book[*].author</code></td>
+				<td>the authors of all books in the store</td>
+			</tr>
+			<tr>
+				<td><code>//author</code></td>
+				<td><code>$..author</code></td>
+				<td>all authors</td>
+			</tr>
+			<tr>
+				<td><code>/store/*</code></td>
+				<td><code>$.store.*</code></td>
+				<td>all things in store, which are some books and a red
+					bicycle.</td>
+			</tr>
+			<tr>
+				<td><code>/store//price</code></td>
+				<td><code>$.store..price</code></td>
+				<td>the price of everything in the store.</td>
+			</tr>
+			<tr>
+				<td><code>//book[3]</code></td>
+				<td><code>$..book[2]</code></td>
+				<td>the third book</td>
+			</tr>
+			<tr>
+				<td><code>//book[last()]</code></td>
+				<td><code>$..book[(@.length-1)]</code> <br> <code>$..book[-1:]</code>
+				</td>
+				<td>the last book in order.</td>
+			</tr>
+			<tr>
+				<td><code>//book[position()&lt;3]</code></td>
+				<td><code>$..book[0,1]</code> <br> <code>$..book[:2]</code>
+				</td>
+				<td>the first two books</td>
+			</tr>
+			<tr>
+				<td><code>//book[isbn]</code></td>
+				<td><code>$..book[?(@.isbn)]</code></td>
+				<td>filter all books with isbn number</td>
+			</tr>
+			<tr>
+				<td><code>//book[price&lt;10]</code></td>
+				<td><code>$..book[?(@.price&lt;10)]</code></td>
+				<td>filter all books cheapier than 10</td>
+			</tr>
+			<tr>
+				<td><code>//*</code></td>
+				<td><code>$..*</code></td>
+				<td>all Elements in XML document. All members of JSON
+					structure.</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
